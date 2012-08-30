@@ -24,7 +24,7 @@ chunk4 = 000
 
 currentChunk = 1
 
-#we gets tons of false positives on prod because of all the socket thrasing so we'll
+#we gets tons of false positives on prod because of all the socket thrashing so we'll
 #wait until we've had a chunk succeed 5 times before calling it
 success = 0
 successChunk = 0
@@ -115,7 +115,7 @@ class SingleTCPHandler(SocketServer.BaseRequestHandler):
             lastport = thisport
         else:
             # On the 4th chunk there's no port diff to check, we need to look at the actual data returned
-            data = self.request.recv(1024)  # clip input at 1Kb
+            data = self.request.recv(1024)
             print data;
 
             if '{"success": true}' in data:
@@ -144,7 +144,6 @@ if __name__ == "__main__":
     # terminate with Ctrl-C
     try:
         server.serve_forever()
-        print "can I do stuff here"
     except KeyboardInterrupt:
         sys.exit(0)
     except:
